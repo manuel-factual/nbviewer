@@ -100,6 +100,11 @@ class LocalFileHandler(RenderingHandler):
             self.download(abspath)
             return
 
+        # Check if the path is a notebook. If not, just return the binary file
+        if not abspath.endswith('.ipynb'):
+          self.download(abspath)
+          return
+
         try:
             with io.open(abspath, encoding='utf-8') as f:
                 nbdata = f.read()
